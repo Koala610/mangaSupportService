@@ -24,7 +24,7 @@ async def set_support(support_id: int, support_request: SupportRequest):
         return {"status": "Error", "message": str(e)}
 
 @router.post("/message/answer")
-async def set_support(support_request: SupportRequest):
+async def respond_message(support_request: SupportRequest):
     try:
         support_service.set_message_response(support_request.message_id, support_request.response)
         return {"status": "Done"}
@@ -43,5 +43,12 @@ async def create_support(support_request: SupportRequest):
 async def get_support_messages(support_id: int, processed: Optional[int]=0):
     try:
         return support_service.get_support_messages(support_id, processed=processed)
+    except Exception as e:
+        return {"status": "Error", "message": str(e)}
+
+@router.get("/message")
+async def get_support_messages():
+    try:
+        return support_service.get_messages()
     except Exception as e:
         return {"status": "Error", "message": str(e)}
