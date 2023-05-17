@@ -35,6 +35,16 @@ class CRUDRepository:
                 logger.logger.critical(f"{str(e)}")
                 return None
             return user
+    
+    def create_by_object(self, object):
+        with self.Session() as session:
+            session.add(object)
+            try:
+                session.commit()
+            except RuntimeError as e:
+                logger.logger.critical(f"{str(e)}")
+                return None
+            return object
 
     def find_by_id(self, id) -> object:
         with self.Session() as session:
