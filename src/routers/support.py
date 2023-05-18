@@ -26,7 +26,7 @@ async def set_support(support_id: int, support_request: SupportRequest):
 @router.post("/message/answer")
 async def respond_message(support_request: SupportRequest):
     try:
-        support_service.set_message_response(support_request.message_id, support_request.response)
+        support_service.set_message_response(support_request.support_id, support_request.message_id, support_request.response)
         return {"status": "Done"}
     except Exception as e:
         return {"status": "Error", "message": str(e)}
@@ -47,8 +47,31 @@ async def get_support_messages(support_id: int, processed: Optional[int]=0):
         return {"status": "Error", "message": str(e)}
 
 @router.get("/message")
+async def get_messages(offset: Optional[int] = None, limit:Optional[int] = None):
+    try:
+        if offset is not None and limit is not None:
+            return support_service.get_messages_in_range(offset=offset, limit=limit)
+        return support_service.get_messages()
+    except Exception as e:
+        return {"status": "Error", "message": str(e)}
+
+@router.get("/message/unprocessed")
+async def get_unprocessed_messages():
+    try:
+        return support_service.get_message_by_processed(False)
+    except Exception as e:
+        return {"status": "Error", "message": str(e)}
+
+@router.get("/message/{id}")
+async def get_message(id: int):
+    try:
+        return support_service.get_message(id)
+    except Exception as e:
+        return {"status": "Error", "message": str(e)}
+
+@router.get("/message/count")
 async def get_support_messages():
     try:
-        return support_service.get_messages()
+        return support_service.get_messages_count()
     except Exception as e:
         return {"status": "Error", "message": str(e)}

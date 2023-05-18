@@ -10,4 +10,6 @@ class SupportRepository(CRUDRepository):
     def get_messages(self, id):
         with self.Session() as session:
             support: Support = session.query(self.Object).get(id)
+            if support is None:
+                raise Exception(f"No support with id {id}")
             return support.messages
