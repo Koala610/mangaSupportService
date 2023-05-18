@@ -62,6 +62,13 @@ async def get_unprocessed_messages():
     except Exception as e:
         return {"status": "Error", "message": str(e)}
 
+@router.get("/message/processed")
+async def get_unprocessed_messages():
+    try:
+        return support_service.get_message_by_processed(True)
+    except Exception as e:
+        return {"status": "Error", "message": str(e)}
+
 @router.get("/message/{id}")
 async def get_message(id: int):
     try:
