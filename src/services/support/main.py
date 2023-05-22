@@ -1,9 +1,11 @@
 from src.repositories import SupportRepository, MessageRepository
 from src.models.user import User, Support, Message
+from src.services.bot_api import bot_api_service, BotApiService
 class SupportService:
-    def __init__(self, support_repository: SupportRepository, message_repository: MessageRepository):
+    def __init__(self, support_repository: SupportRepository, message_repository: MessageRepository, bot_api_service: BotApiService):
         self.support_repository = support_repository
         self.message_repository = message_repository
+        self.bot_api_service = bot_api_service
 
     def get_messages(self):
         return self.message_repository.find_all()
@@ -31,6 +33,7 @@ class SupportService:
 
     def set_message_response(self, support_id, message_id, response):
         self.message_repository.update(message_id, is_processed=True, response=response, support_id=support_id)
+        # self.bot_api_service.send_message()
 
     def create_support(self, message_id, response):
         self.message_repository.update(message_id, is_processed=True, response=response)
@@ -43,3 +46,6 @@ class SupportService:
 
     def get_messages_count(self):
         return self.message_repository.count()
+
+    def get_support_by_user_id(self, user_id: int):
+        return self.support_repository.find_by_user_id(user_id)

@@ -13,3 +13,10 @@ class SupportRepository(CRUDRepository):
             if support is None:
                 raise Exception(f"No support with id {id}")
             return support.messages
+
+    def find_by_user_id(self, user_id: int):
+        with self.Session() as session:
+            support: Support = session.query(self.Object).filter_by(user_id = user_id).first()
+            if support is None:
+                raise Exception(f"No support with id {id}")
+            return support

@@ -82,3 +82,10 @@ async def get_support_messages():
         return support_service.get_messages_count()
     except Exception as e:
         return {"status": "Error", "message": str(e)}
+
+@router.get("/support/get")
+async def get_support(user_id: int):
+    try:
+        return support_service.get_support_by_user_id(user_id)
+    except Exception as e:
+        return {"status": "Error", "message": str(e)}
