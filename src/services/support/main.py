@@ -1,8 +1,8 @@
 from src.repositories import SupportRepository, MessageRepository
-from src.models.user import User, Support, Message
+from core_entity.user import User, Support, Message
 from src.services.bot_api import bot_api_service, BotApiService
 class SupportService:
-    def __init__(self, support_repository: SupportRepository, message_repository: MessageRepository, bot_api_service: BotApiService):
+    def __init__(self, support_repository: SupportRepository, message_repository: MessageRepository):
         self.support_repository = support_repository
         self.message_repository = message_repository
         self.bot_api_service = bot_api_service

@@ -1,5 +1,5 @@
-from .crud_repository import CRUDRepository
-from src.models.user import Support
+from core_repository.crud_repository import CRUDRepository
+from core_entity.user import Support
 from src.logger import logger
 
 class SupportRepository(CRUDRepository):

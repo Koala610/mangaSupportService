@@ -1,4 +1,4 @@
-import logging as logger
+from core_logger import logger
 from datetime import datetime, timezone
 
 cur_time = datetime.now(timezone.utc).astimezone()

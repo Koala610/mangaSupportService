@@ -1,5 +1,5 @@
-from .crud_repository import CRUDRepository
-from src.models.user import Message
+from core_repository.crud_repository import CRUDRepository
+from core_entity.user import Message
 from src.logger import logger
 
 class MessageRepository(CRUDRepository):

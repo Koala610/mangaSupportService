@@ -1,5 +1,5 @@
-from .user_repository import UserRepository
-from .admin_repository import AdminRepository
+from core_repository.user_repository import UserRepository
+from core_repository.admin_repository import AdminRepository
 from .support_repository import SupportRepository
 from .message_repository import MessageRepository
 from ..config import DSN
